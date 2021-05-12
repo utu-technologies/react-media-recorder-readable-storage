@@ -64,6 +64,10 @@ export default class ReadableStorage extends ObjectUrlStorage {
 
   #isLocked?: boolean = false;
 
+  setUrl(url: string) {
+    this.url = url;
+  }
+
   setBlobProperties(blobProperties: BlobPropertyBag): void {
     this.blobProperties = blobProperties;
   }
