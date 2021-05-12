@@ -1,4 +1,4 @@
-import { VideoStorage } from "react-media-recorder";
+import { ObjectUrlStorage } from "react-media-recorder";
 
 class QueueItem<ValueType> {
   readonly value: ValueType;
@@ -21,8 +21,8 @@ class Queue<ValueType> {
    * @param value
    */
   enqueue(value: ValueType) {
-    const newItem = new QueueItem(value)
-    if(this.#end) {
+    const newItem = new QueueItem(value);
+    if (this.#end) {
       this.#end.next = newItem;
     } else {
       this.#head = this.#end = newItem;
@@ -35,27 +35,26 @@ class Queue<ValueType> {
   dequeue(): ValueType | undefined {
     const result = this.#head;
     this.#head = result?.next;
-    if(!this.#head) this.#end = undefined;
+    if (!this.#head) this.#end = undefined;
     return result?.value;
   }
 }
 
-
 function readResult(value: Blob): ReadableStreamReadResult<Blob> {
   return {
     done: false,
-    value: value
-  }
+    value: value,
+  };
 }
 
 const DONE: ReadableStreamReadResult<Blob> = { done: true };
 
 /** A minimal reader interface which only support the read() method. Can be used e.g. with tus-js-client. */
 export interface MinimalReader {
-  read(): Promise<ReadableStreamReadResult<Blob>>
+  read(): Promise<ReadableStreamReadResult<Blob>>;
 }
 
-export default class ReadableStorage implements VideoStorage {
+export default class ReadableStorage extends ObjectUrlStorage {
   blobProperties: any;
   url: string | null = null;
 
@@ -74,7 +73,7 @@ export default class ReadableStorage implements VideoStorage {
 
     const nextResolve = this.#resolveQueue.dequeue();
 
-    if(nextResolve) {
+    if (nextResolve) {
       nextResolve(readResult(chunk));
     } else {
       this.#chunkQueue.enqueue(chunk);
@@ -104,7 +103,7 @@ export default class ReadableStorage implements VideoStorage {
    * Gets a MinimalReader for this storage if not locked, and locks this storage. If locked, an Error is thrown.
    */
   getReader(): MinimalReader {
-    if(this.#isLocked) throw new Error("ReadableStorage is locked.");
+    if (this.#isLocked) throw new Error("ReadableStorage is locked.");
 
     this.#isLocked = true;
 
@@ -118,10 +117,11 @@ export default class ReadableStorage implements VideoStorage {
         } else if (!thisReadableStorage.#isInProgress) {
           return Promise.resolve(DONE);
         } else {
-          return new Promise(resolve => thisReadableStorage.#resolveQueue.enqueue(resolve));
+          return new Promise((resolve) =>
+            thisReadableStorage.#resolveQueue.enqueue(resolve)
+          );
         }
-      }
+      },
     };
-  };
+  }
 }
-

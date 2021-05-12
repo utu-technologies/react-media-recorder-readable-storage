@@ -29,10 +29,8 @@
     "@types/jest": "^26.0.23",
     "jest": "^26.6.3",
     "jsmin": "^1.0.1",
+    "react-media-recorder": "github:utu-technologies/react-media-recorder#Feature/3536-upload-video-immediately-to-Stream",
     "ts-jest": "^26.5.5",
     "typescript": "^3.9.9"
-  },
-  "dependencies": {
-    "react-media-recorder": "^1.4.0"
   }
 }
