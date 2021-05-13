@@ -6,7 +6,8 @@
   "scripts": {
     "build": "tsc && jsmin -o ./lib/index.js ./lib/index.js",
     "prepare": "npm run build",
-    "test": "jest"
+    "test": "jest",
+    "install": "npm run build"
   },
   "repository": {
     "type": "git",
