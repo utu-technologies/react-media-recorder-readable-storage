@@ -8,6 +8,9 @@
     "prepare": "npm run build",
     "test": "jest"
   },
+  "files": [
+    "lib"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/utu-technologies/react-media-recorder-readable-storage.git"
