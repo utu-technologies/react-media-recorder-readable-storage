@@ -1,8 +1,5 @@
 import ReadableStorage from "./index";
 
-
-
-
 /**
  * Comparing Blobs with expect().toBe[Strict]Equal doesn't work, therefore we a mock class.
  */
