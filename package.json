@@ -33,6 +33,6 @@
     "typescript": "^3.9.9"
   },
   "dependencies": {
-    "react-media-recorder": "^1.4.0"
+    "react-media-recorder": "github:utu-technologies/react-media-recorder#Feature/3536-upload-video-immediately-to-Stream"
   }
 }
