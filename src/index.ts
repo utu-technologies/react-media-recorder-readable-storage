@@ -1,4 +1,4 @@
-import { VideoStorage } from "react-media-recorder";
+import { IVideoStorage } from "react-media-recorder";
 
 class QueueItem<ValueType> {
   readonly value: ValueType;
@@ -55,7 +55,7 @@ export interface MinimalReader {
   read(): Promise<ReadableStreamReadResult<Blob>>
 }
 
-export default class ReadableStorage implements VideoStorage {
+export default class ReadableStorage implements IVideoStorage {
   blobProperties: any;
   url: string | null = null;
 
