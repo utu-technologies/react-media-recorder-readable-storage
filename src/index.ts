@@ -54,7 +54,7 @@ export interface MinimalReader {
   read(): Promise<ReadableStreamReadResult<Blob>>;
 }
 
-export default class ReadableStorage implements IVideoStorage {
+export class ReadableStorage implements IVideoStorage {
   blobProperties: any;
   url: string | null = null;
 
@@ -63,6 +63,8 @@ export default class ReadableStorage implements IVideoStorage {
   #isInProgress: boolean = true;
 
   #isLocked?: boolean = false;
+
+  constructor() {}
 
   setUrl(url: string) {
     this.url = url;
