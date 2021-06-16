@@ -4,7 +4,7 @@
   "description": "tus upload VideoStorage for react-media-recorder",
   "main": "index.js",
   "scripts": {
-    "build": "tsc && jsmin -o ./lib/index.js ./lib/index.js",
+    "build": "tsc",
     "prepare": "npm run build",
     "test": "jest"
   },
