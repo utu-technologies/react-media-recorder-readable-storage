@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "tus upload VideoStorage for react-media-recorder",
   "main": "index.js",
-  "source": "src/index.ts",
   "scripts": {
     "build": "microbundle -i src/index.ts -o lib/index.js",
     "prepare": "npm run build",
