@@ -2,6 +2,7 @@
   "name": "react-media-recorder-readable-storage",
   "version": "1.0.0",
   "description": "tus upload VideoStorage for react-media-recorder",
+  "module": "lib",
   "main": "index.js",
   "scripts": {
     "build": "microbundle -i src/index.ts -o lib/index.js",
