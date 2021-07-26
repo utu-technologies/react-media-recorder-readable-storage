@@ -61,6 +61,42 @@ test("read before store", () => {
   });
 });
 
+test("get enqueued blob after stop()", () => {
+  const readableStorage = new ReadableStorage();
+  const blob = new BlobMock(1);
+  readableStorage.storeChunk(blob);
+  readableStorage.stop();
+
+  const reader = readableStorage.getReader();
+  return expect(reader.read()).resolves.toStrictEqual({
+    done: false,
+    value: blob
+  });
+});
+
+test("get last enqueued blob after stop()", () => {
+  const readableStorage = new ReadableStorage();
+  const numbBlobs = 3;
+  const blobs = [];
+  for(let i = 0; i < numbBlobs; ++i) {
+    blobs[i] = new BlobMock(i);
+    readableStorage.storeChunk(blobs[i]);
+  }
+
+  readableStorage.stop();
+
+  const reader = readableStorage.getReader();
+  const readResults = [];
+  for(let i = 0; i < numbBlobs; ++i) {
+    readResults[i] = reader.read();
+  }
+
+  return expect(Promise.all(readResults)).resolves.toStrictEqual(blobs.map(blob => ({
+    done: false,
+    value: blob
+  })));
+});
+
 test("done after last read", () => {
   const readableStorage = new ReadableStorage();
   const blob = new BlobMock(1);
@@ -68,7 +104,7 @@ test("done after last read", () => {
   readableStorage.stop();
 
   const reader = readableStorage.getReader();
-  return reader.read().then(() => expect(reader.read()).resolves.toStrictEqual({done: true}));
+  return reader.read().then(readResult1 => expect(reader.read()).resolves.toStrictEqual({done: true}));
 });
 
 test("store and read after reset", () => {

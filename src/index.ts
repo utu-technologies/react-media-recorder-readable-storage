@@ -24,6 +24,7 @@ class Queue<ValueType> {
     const newItem = new QueueItem(value);
     if (this.#end) {
       this.#end.next = newItem;
+      this.#end = newItem;
     } else {
       this.#head = this.#end = newItem;
     }
